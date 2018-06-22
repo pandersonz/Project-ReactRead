@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export const Book = ({ book, sBookChange }) => (
+export const Book = ({ book, changeSelectBook }) => (
   <li key={book.id+book.title}>
     <div className="book">
       <div className="book-top">
@@ -15,7 +15,7 @@ export const Book = ({ book, sBookChange }) => (
         />
         <div className="book-shelf-changer">
           <select
-            onChange={event => sBookChange(event, book)}
+            onChange={event => changeSelectBook(event, book)}
             value={book.shelf}
           >
             <option value="none" disabled>

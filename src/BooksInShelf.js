@@ -2,28 +2,26 @@ import React, { Component } from "react";
 import { Book } from "./Book";
 import PropTypes from "prop-types";
 
-class BooksInShelf extends React.Component {
-  sChange = (event, book) => {
-    const { shelfPlace, onShelfChangeInSearch } = this.props;
+class BookInShelf extends React.Component {
+  selectChange = (event, book) => {
+    const { changeBookShelf, onShelfChangeInSearch } = this.props;
     const shelf = event.target.value;
-    shelfPlace(book, shelf);
+    changeBookShelf(book, shelf);
   };
   render() {
-    const { sTitle, books } = this.props;
+    const { shelfName, books } = this.props;
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{sTitle}</h2>
+        <h2 className="bookshelf-title">{shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.map((book) => (
+            {books.map((book, index) => (
               <Book
-              key={book.index}
                 book={book}
-                sBookChange={this.sChange}
-                
+                changeSelectBook={this.selectChange}
+                key={index}
               />
             ))}
-            
           </ol>
         </div>
       </div>
@@ -31,9 +29,9 @@ class BooksInShelf extends React.Component {
   }
 }
 
-BooksInShelf.propTypes = {
+BookInShelf.propTypes = {
   book: PropTypes.array,
-  selectChange: PropTypes.func
+  changeBookShelf: PropTypes.func
 };
 
-export default BooksInShelf;
+export default BookInShelf;

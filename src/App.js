@@ -1,19 +1,19 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import FinderBook from "./FinderBook";
-import MyShelf from './Shelf';
+import FinderBook from "./FinderBooks";
+import Shelf from './Shelf';
 import "./App.css";
 
 const App = () => (
   <Switch>
         <Route
-            path="/finder"
+            path="/search"
             component={FinderBook}
         />
         
         <Route
             path="/"
-            component={MyShelf}
+            component={Shelf}
         />
     </Switch>
 )
