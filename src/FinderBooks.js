@@ -7,9 +7,11 @@ import PropTypes from "prop-types";
 class FinderBooks extends Component {
   state = {
     query: "",
+    err:"",
     flag:false,
     booksSearched: []
   };
+  
   //returns the new book aggregates to a shelf
   cShelfBookSearched = (objectBook, shelf) => state => {
     let newBooks = state.booksSearched.map(bookSearched => {
@@ -25,7 +27,7 @@ class FinderBooks extends Component {
     this.setState({ query: target.value });
     BooksAPI.search(query, 20).then(booksSearched => {
       if(target.value===""){
-        this.setState({flag:false});
+        this.setState({flag:false, err:""});
       
     }else{
       if (booksSearched) {
@@ -37,7 +39,11 @@ class FinderBooks extends Component {
             }
           });
         });
-        this.setState({ booksSearched, flag:true });
+        this.setState({ booksSearched, flag:true, err:"" });
+      }
+      else{
+        this.setState({flag:false, err: "search income not allowed"});
+
       }
       }
     });
@@ -73,12 +79,13 @@ class FinderBooks extends Component {
             name="Results"
             books={booksSearched}
             changeBookShelf={this.ShelfBookChange}
+            
           />
         </div>
         )}
         {flag===false&&(
           <div className="search-books-results">
-          
+          <h3>{this.state.err}</h3>
           
           </div>
         )}

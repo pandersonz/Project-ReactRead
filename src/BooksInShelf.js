@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Book } from "./Book";
+import React from "react";
+import Book from "./Books";
 import PropTypes from "prop-types";
 
 class BookInShelf extends React.Component {
@@ -20,7 +20,7 @@ class BookInShelf extends React.Component {
               <Book
                 book={book}
                 changeSelectBook={this.selectChange}
-                key={index}
+                key={book.id}
               />
             ))}
           </ol>
