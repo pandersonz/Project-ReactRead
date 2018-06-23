@@ -3,6 +3,7 @@ import { Book } from "./Book";
 import PropTypes from "prop-types";
 
 class BookInShelf extends React.Component {
+  //returns the information of the book and its shelf to which it belongs
   selectChange = (event, book) => {
     const { changeBookShelf, onShelfChangeInSearch } = this.props;
     const shelf = event.target.value;

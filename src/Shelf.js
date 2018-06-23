@@ -13,7 +13,9 @@ class Shelf extends React.Component {
         { id: 'read', title: 'Read'}]
      
     };
+    //add a new book to our list of books
     addBook = newBook => state => { books: state.books.push(newBook) }
+    //change change the value of the shelf to which the book belongs
     changeShelfOfBook = (ChangeBook, shelf) => stateOfbook => {
       let newBooks = stateOfbook.books.map(book => {
         if (ChangeBook.id === book.id) {
@@ -23,19 +25,22 @@ class Shelf extends React.Component {
       });
       return { books: newBooks };
   }
+  //get the array of books from the BackEnd
     componentDidMount() {
       BooksAPI.getAll().then(books =>
         this.setState({ books })
       );
     }
+     //check if the book exists in our list on the shelf
     isTheBookNew = objectBook => {
-      let flag = false;
+      let result = false;
       if (objectBook.shelf === "none") {
         this.setState(this.addBook(objectBook))
-        flag = true;
+        result = true;
       }
-      return flag;
+      return result;
     };
+    //updates in the BackEnd the shelf to which a book belongs
     sChange = (objectBook, shelf) => {
       !this.isTheBookNew(objectBook) &&
         this.setState(this.changeShelfOfBook(objectBook, shelf));
@@ -48,6 +53,7 @@ class Shelf extends React.Component {
         
         return(
             <section>
+        
                 {this.state.isSearching===false && ( 
                 
                   <div>
@@ -64,7 +70,7 @@ class Shelf extends React.Component {
                       <Link to="/mybooks" onClick={()=>this.setState({ isSearching: true })}>Add a book</Link>
                     </div>
                   </div>)}
-                  {this.state.isSearching===true && ( 
+                 {this.state.isSearching===true && ( 
                 <FinderBook  
                     showUpdateBook={books}
                     changeBookShelf={this.sChange}

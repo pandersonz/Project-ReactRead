@@ -10,6 +10,7 @@ class FinderBooks extends Component {
     flag:false,
     booksSearched: []
   };
+  //returns the new book aggregates to a shelf
   cShelfBookSearched = (objectBook, shelf) => state => {
     let newBooks = state.booksSearched.map(bookSearched => {
       bookSearched.id === objectBook.id && (bookSearched.shelf = shelf);
@@ -17,6 +18,7 @@ class FinderBooks extends Component {
     });
     return { booksSearched: newBooks };
   }
+  //search and display the books that match the written content of the search bar
   change = ({ target }) => {
     const { query } = this.state;
     const { showUpdateBook } = this.props;
@@ -40,6 +42,7 @@ class FinderBooks extends Component {
       }
     });
   };
+  //returns the information of the book and its shelf to which it belongs
   ShelfBookChange = (objectBook, shelf) => {
     const { booksSearched } = this.state;
     const { changeBookShelf } = this.props;

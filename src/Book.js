@@ -14,6 +14,7 @@ export const Book = ({ book, changeSelectBook }) => (
           }}
         />
         <div className="book-shelf-changer">
+        
           <select
             onChange={event => changeSelectBook(event, book)}
             value={book.shelf}
