@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 class FinderBooks extends Component {
   state = {
-    query: "",
+    
     err:"",
     flag:false,
     booksSearched: []
@@ -22,24 +22,29 @@ class FinderBooks extends Component {
   }
   //search and display the books that match the written content of the search bar
   change = ({ target }) => {
-    const { query } = this.state;
     const { showUpdateBook } = this.props;
-    this.setState({ query: target.value });
-    BooksAPI.search(query, 20).then(booksSearched => {
+    
+    BooksAPI.search(String(target.value), 20).then(booksSearched => {
       if(target.value===""){
         this.setState({flag:false, err:""});
       
     }else{
       if (booksSearched) {
-        booksSearched.map(bookSearched => {
-          bookSearched.shelf = "none";
-          showUpdateBook.map(showUpdateBook => {
-            if (bookSearched.id === showUpdateBook.id) {
-              bookSearched.shelf = showUpdateBook.shelf;
-            }
+        if(booksSearched.error!=="empty query"){                
+          booksSearched.map(bookSearched => {
+            bookSearched.shelf = "none";
+            showUpdateBook.map(showUpdateBook => {
+              if (bookSearched.id === showUpdateBook.id) {
+                bookSearched.shelf = showUpdateBook.shelf;
+              }
+            });
           });
-        });
-        this.setState({ booksSearched, flag:true, err:"" });
+          this.setState({ booksSearched, flag:true, err:"" });
+        }
+        else{
+        
+        this.setState({booksSearched:[],flag:false, err:"The search did not any results"})
+        }
       }
       else{
         this.setState({flag:false, err: "search income not allowed"});
